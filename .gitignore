@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# VS Code project settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Secrets and credentials (if any)
+*.env
+secrets.py
+
+# Compiled firmware or temporary flash files
+*.bin
+*.elf
+*.hex
+
+# Backup files
+*~
+*.bak
+
+# Logs
+*.log
