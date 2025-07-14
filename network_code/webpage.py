@@ -3,14 +3,13 @@ import socket
 import time
 
 # Home Wi-Fi credentials
-SSID = 'YOUR_WIFI_NAME'
-PASSWORD = 'YOUR_WIFI_PASSWORD'
+SSID = 'CenturyLink1147'
+PASSWORD = 'Jesus1sL0VE!:)'
 
 # Static IP config
-STATIC_IP = '192.168.1.123'  # Make sure this is unused on your network
+STATIC_IP = '192.168.0.69'  # Make sure this is unused on your network
 SUBNET_MASK = '255.255.255.0'
-GATEWAY = '192.168.1.1'
-DNS = '8.8.8.8'
+GATEWAY = '192.168.0.1'
 
 # Connect to Wi-Fi with static IP
 wlan = network.WLAN(network.STA_IF)

@@ -1,28 +1,39 @@
+#import machine and time libraries
+from machine import Pin, ADC
+import time
+
+
+#setup adc pin
 '''
-pin 0 is the data from the soil moisture sensor
-MUST use voltage divider to take down the 3.3v output from the
-moisture sensor down to 1.1v max
-
-contact with the soil is important for accurate readings
-
-you should recalibrate the dry and wet values to get proper percentages
+Note:
+    The esp32c3-devkitM1 expects a voltage range between 0v and 1.1v by default,
+    This means that you must attenuate the input voltage to get the correct range from the soil moisture sensor
+    in this case, 11dB comes out to a max range of 2.45v of readable voltage
+    absolute max input voltage to the analog pin without damage is 3.7v
+    consult the docs for your board if you're using something else.
 '''
-
-from machine import ADC, Pin
-
-
-#define pin and calibrate sensor
-moisture = ADC(Pin(0))
-dry = 26070
-wet = 700
+adc_pin = ADC(Pin(0))
+adc_pin.atten(ADC.ATTN_11DB)
 
 
-#read raw, scale, and map
-raw = moisture.read_u16()
-moisture_percent = (dry - raw) * 100 // (dry - wet)
-moisture_percent = max(0, min(100, moisture_percent))
+#measure dry and wet values and record as the max and min
+'''
+Note:
+    unintuitively, this means dry is more voltage, wet is less voltage
+    when I measured mine with adc_pin.read(), I got 3000 dry, and 1000 wet
+'''
+dry = 3000
+wet = 1000
 
-#uncomment this to calibrate dry and wet
-#print(raw)
 
-print(f"Moisture: {moisture_percent}%")
+#measure analog reading
+while True:
+    soil_volts = adc_pin.read()
+    if (soil_volts < wet):
+        print("Soil Moisture: 100\%")
+    elif (soil_volts > dry):
+        print("Soil Moisture: 0%")
+    else:
+        moisture = (soil_volts - dry) * 100 / (wet - dry)
+        print("Soil Moisture: %i%%" % moisture)
+    time.sleep(0.5)
