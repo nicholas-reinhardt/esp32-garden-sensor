@@ -1,6 +1,3 @@
-#this is the code for the bmp280 on an esp32c3.
-
-
 #import libraries including drivers for bmp280
 import bme280_float as bme280
 from machine import Pin, I2C

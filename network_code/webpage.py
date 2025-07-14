@@ -10,6 +10,7 @@ PASSWORD = 'Jesus1sL0VE!:)'
 STATIC_IP = '192.168.0.69'  # Make sure this is unused on your network
 SUBNET_MASK = '255.255.255.0'
 GATEWAY = '192.168.0.1'
+DNS = '8.8.8.8'
 
 # Connect to Wi-Fi with static IP
 wlan = network.WLAN(network.STA_IF)
@@ -30,7 +31,7 @@ html = """<!DOCTYPE html>
 <head><title>ESP32 Garden</title></head>
 <body>
     <h1>Garden Sensor</h1>
-    <p>Everything's working fine 🌱</p>
+    <p>Everything's working fine</p>
 </body>
 </html>
 """
@@ -42,6 +43,7 @@ s.bind(addr)
 s.listen(1)
 print('Listening on', addr)
 
+#log connections
 while True:
     conn, addr = s.accept()
     print('Got connection from', addr)
